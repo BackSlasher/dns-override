@@ -31,7 +31,7 @@ FILE *init_better_resolv() {
     better_resolv = getenv(RESOLV_ENV);
     // Print warning message
     if (!better_resolv)
-      fprintf(STD_ERR, "dns-override: No env var %s, will return unmodified file\n", RESOLV_ENV);
+      fprintf(stderr, "dns-override: No env var %s, will return unmodified file\n", RESOLV_ENV);
   }
   if (better_resolv)
     return fmemopen(better_resolv, strlen(better_resolv), "r");
