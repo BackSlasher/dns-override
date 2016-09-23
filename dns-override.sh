@@ -46,7 +46,14 @@ RESOLV_CONF="$(grep -Pv '^\s*nameserver ' /etc/resolv.conf)"
 RESOLV_CONF="${RESOLV_CONF}$(echo ; echo "$SERVERS" | tr "$SEPARATOR" "\n" | sed 's/^/nameserver /')"
 export RESOLV_CONF
 
+# Collect dns-override.so
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-export LD_PRELOAD=$DIR/dns-override.so:${LD_PRELOAD-}
+PRELOAD_FILE="$DIR/dns-override.so"
+if [ ! -r "$PRELOAD_FILE" ]; then
+  echo "Cannot read $PRELOAD_FILE: Did you \`make\` it?"
+  exit 2
+fi
+
+export LD_PRELOAD=${PRELOAD_FILE}:${LD_PRELOAD-}
 
 exec $@
