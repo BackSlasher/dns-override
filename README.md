@@ -6,8 +6,15 @@ the function reads from the environment variable `DNS_SERVERS` and constructs a 
 By using `LD_PRELOAD` we'll be monkeypatching `fopen` to open our own version of `/etc/resolv.conf` instaed of the real one.  
 Since `LD_PRELOAD` is an environment variable, the same will be inherited for all subprocesses.
 
-## Usgae
-1. Build dns-override.so if needed
+## Common Usgae
+1. Build dns-override.so if needed (`make dns-override.so`)
 2. determine replacement DNS servers
-3. run desired binary `bin` like so: `LD_PRELOAD=$PWD/dns-override.so:$LD_PRELOAD DNS_SERVERS=192.168.0.1,192.168.0.2 bin`  
-    Alternatively, one can use the wrapper script: `dns-override.sh --servers 192.168.0.1,192.168.0.2 bin`
+3. run desired file like so: `./dns-override.sh -s SERVER BINARY`)  
+    Multiple servers can be specified, see script
+
+## Advanced usage
+Run `LD_PRELOAD=./dns-override.so:$LD_PRELOAD RESOLV_CONF=<new resolv conf contents> <binary>`.  
+Do note that I'm only covering `fopen` which isn't used by all programs. For instance, `python` will be fooled but `perl` will not.
+
+## Testing
+`bats` and `perl` are required.  
