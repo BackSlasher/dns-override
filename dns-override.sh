@@ -56,4 +56,4 @@ fi
 
 export LD_PRELOAD=${PRELOAD_FILE}:${LD_PRELOAD-}
 
-exec $@
+exec "$@"
