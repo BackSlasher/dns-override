@@ -49,3 +49,9 @@
   RES=$(echo "$RES" | perl -ne 'print $1,$/ if /^nameserver\s+(.*)$/')
   [[ "$RES" == $'1.2.3.4\n5.6.7.8\n9.10.11.12' ]]
 }
+
+@test 'subprocesses' {
+  SERVER='8.8.8.8'
+  RES="$(./dns-override.sh -s $SERVER bash -c nslookup\ google.com | perl -ne 'print $1,$/ if /^Server:\s+(.+)$/')"
+  [[ "$RES" == "$SERVER" ]]
+}
