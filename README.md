@@ -2,9 +2,11 @@
 Used to override DNS settings for a single process (and its decendants) using the glibc resolv
 
 ## How it works
-the function reads from the environment variable `DNS_SERVERS` and constructs a modified `/etc/resolv.conf` file, based on the original one but with our new servers.  
-By using `LD_PRELOAD` we'll be monkeypatching `fopen` to open our own version of `/etc/resolv.conf` instaed of the real one.  
-Since `LD_PRELOAD` is an environment variable, the same will be inherited for all subprocesses.
+The library monkeypatches `fopen` and looks for calls for `/etc/resolv.conf`, and returns a file pointer to a memory stream containing a customized version of `resolv.conf`.  
+The new `resolv.conf` is built by the script based on the current `resolv.conf` and passed as the `RESOLV_CONF` environment variable.  
+We then use `LD_PRELOAD` to insert our library (and version of `fopen`) before the "real" one.  
+It then `exec`s the wanted binary.  
+Since both `LD_PRELOAD` and `RESOLV_CONF` are environment variables, they'll pass on to subprocesses too.
 
 ## Common Usgae
 1. Build dns-override.so if needed (`make dns-override.so`)
