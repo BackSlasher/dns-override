@@ -9,7 +9,7 @@ It then `exec`s the wanted binary.
 Since both `LD_PRELOAD` and `RESOLV_CONF` are environment variables, they'll pass on to subprocesses too.
 
 ## Common Usgae
-1. Build dns-override.so if needed (`make dns-override.so`)
+1. Build `dns-override.so` if needed (`make dns-override.so`)
 2. determine replacement DNS servers
 3. run desired file like so: `./dns-override.sh -s SERVER BINARY`)  
     Multiple servers can be specified, see script
@@ -19,4 +19,6 @@ Run `LD_PRELOAD=./dns-override.so:$LD_PRELOAD RESOLV_CONF=<new resolv conf conte
 Do note that I'm only covering `fopen` which isn't used by all programs. For instance, `python` will be fooled but `perl` will not.
 
 ## Testing
-`bats` and `perl` are required.  
+`bats`, `perl` and `python` are required.  
+
+1. Run `make test`
