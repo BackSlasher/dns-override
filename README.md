@@ -1,6 +1,9 @@
 # DNS Override
 Used to override DNS settings for a single process (and its decendants) using the glibc resolv
 
+See my post about it:  
+<http://blog.backslasher.net/dns-override.html>
+
 ## How it works
 The library monkeypatches `fopen` and looks for calls for `/etc/resolv.conf`, and returns a file pointer to a memory stream containing a customized version of `resolv.conf`.  
 The new `resolv.conf` is built by the script based on the current `resolv.conf` and passed as the `RESOLV_CONF` environment variable.  
