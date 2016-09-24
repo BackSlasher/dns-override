@@ -32,7 +32,7 @@
   [[ "$status" == 1 ]]
 }
 
-@test 'validating multiple nameservers' {
+@test 'validating nameserver' {
   RES=$(./dns-override.sh -s 1.2.3.4 python -c 'print open("/etc/resolv.conf").read()')
   RES=$(echo "$RES" | perl -ne 'print $1,$/ if /^nameserver\s+(.*)$/')
   [[ "$RES" == '1.2.3.4' ]]
