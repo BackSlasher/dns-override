@@ -25,3 +25,11 @@ Do note that I'm only covering `fopen` which isn't used by all programs. For ins
 `bats`, `perl` and `python` are required.  
 
 1. Run `make test`
+
+## Sourced projects
+
+* `fmemopen` for Mac OS:  
+    https://github.com/materialsvirtuallab/pyhull/tree/master/src/fmemopen
+    License Apache 2.0
+    commit `939954d`
+

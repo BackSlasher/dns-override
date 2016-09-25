@@ -5,6 +5,11 @@
 #include <string.h>
 #include <stdlib.h>
 
+// Alternative fmemopen for Apple
+#ifndef __APPLE__
+#include "fmemopen-apple/fmemopen.h"
+#endif
+
 static const char *RESOLV_CONF = "/etc/resolv.conf";
 static const int RESOLV_SIZE = 16;
 
