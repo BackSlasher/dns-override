@@ -5,6 +5,10 @@
 #include <string.h>
 #include <stdlib.h>
 
+// make code compatible with glibc 2.2.5.
+__asm__(".symver dlsym,dlsym@GLIBC_2.2.5");
+__asm__(".symver fmemopen,fmemopen@GLIBC_2.2.5");
+
 static const char *RESOLV_CONF = "/etc/resolv.conf";
 static const int RESOLV_SIZE = 16;
 
